@@ -45,6 +45,14 @@ input:-moz-placeholder { color:#a9a9a9; }
 textarea:-moz-placeholder { color:#a9a9a9; }
 
 
+h1 { font-size: 200%; font-weight: 700; }
+h2 { font-size: 160%; font-weight: 700; }
+h3 { font-size: 140%; font-weight: 700; }
+h4 { font-size: 130%; font-weight: 700; }
+h5 { font-size: 120%; font-weight: 700; }
+h6 { font-size: 110%; font-weight: 700; }
+
+
 /* And here begins the WordPress fun.
 -------------------------------------------------------------------------------*/
 
@@ -127,7 +135,7 @@ html {
     color: #000000;
 }
 
-.post-entry, .entry-single {
+.post-entry, .entry-single, .entry-comments {
     background: white;
     border: 1px solid #e0e0e0;
     -webkit-box-shadow: 0 0 2px #dddddd;
@@ -139,7 +147,8 @@ html {
     width: 100%;
 }
 
-.post-entry-inner, .entry-single-inner {
+.post-entry-inner, .entry-single-inner,
+.entry-comments-inner{
     padding: 15px;
     position: relative;
     width: auto;
@@ -179,12 +188,15 @@ html {
     color: #cccccc;
 }
 
-.entry-title {
-    color: #000;
-    font-size: 200%;
-    padding-top: 5px;
-    padding-bottom: 15px;
+.entry-header {
     border-bottom: 1px solid #dddddd;
+    padding-bottom: 5px;
+}
+
+.entry-title {
+    color: #34495e;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 
 .entry-title a {
@@ -195,21 +207,15 @@ html {
     color: #000;
 }
 
-.post-entry .entry-title {
-    font-size: 160%;
-    padding-top: 0px;
-    padding-bottom: 10px;
-}
 
 .entry-info {
     padding: 10px 0;
+    border-bottom: 1px solid #f7f7f7;
 }
 
 .entry-content {
     padding: 15px 0;
-    border-top: 1px solid #f7f7f7;
     border-bottom: 1px solid #f7f7f7;
-
 }
 
 .entry-meta {
@@ -218,6 +224,11 @@ html {
 
 .entry-tags, .entry-category {
     display: inline-block;
+}
+
+.entry-single .entry-tags,
+.entry-single .entry-category {
+    padding-bottom: 5px;
 }
 
 .entry-tags {
@@ -235,6 +246,62 @@ html {
     background: #C0392B;
     color: #ffffff;
 }
+
+
+.comments-header, .comments-userinfo {
+    margin-bottom: 10px;
+}
+
+.comments-respond-no-comments {
+    margin-top: 15px;
+}
+
+.entry-comments-inner a {
+    color: #C0392B;
+}
+
+#commentform {
+
+}
+
+.comments-write textarea, .comments-write input[type=text] {
+    background-color: white;
+    border: 1px solid #e8e8e8;
+    color: #666666;
+    padding: 3px 2px;
+}
+
+.comments-input-info {
+    margin-top: 10px;
+}
+
+.comments-write textarea {
+    width: 100%;
+}
+
+.comments-write input[type=text] {
+    max-width: 240px;
+}
+
+.comments-write input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    background-color: #C0392B;
+    border: medium none;
+    /*border-radius: 6px;*/
+    color: #fff;
+    padding: 3px 10px/*15px*/;
+    text-align: center;
+    height: 30px;
+}
+
+a[class~=comments-link-button] {
+    padding: 6px 10px;
+    background: #C0392B;
+    color: #ffffff;
+}
+
+
 
 .navigation a {
     cursor: pointer;

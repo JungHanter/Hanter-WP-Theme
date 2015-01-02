@@ -43,11 +43,8 @@
 	<?php endif; ?>
 
 	<script>
-		$('.widget_search label').css("display", "none");
-		$('.widget_search input[type="search"]').attr("placeholder", "Search here...");
-		$('.widget_search input[type="text"]').attr("placeholder", "Search here...");
 
-		$('.sidebar-widget .tagcloud a').css("font-size", "14px");
+		$('.sidebar-widget .tagcloud a').css("font-size", "13px");
 	</script>
 
 </aside>

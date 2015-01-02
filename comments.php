@@ -11,91 +11,101 @@
 ?>
 
 <?php if ( have_comments() ) : ?>
-	
-	<h2 id="comments"><?php comments_number(__('No Responses','html5reset'), __('One Response','html5reset'), __('% Responses','html5reset') );?></h2>
+	<div class="comments-content">
+		<h3 class="comments-header"><?php comments_number(__('No Comments','html5reset'), __('One Comment','html5reset'), __('% Comments','html5reset') );?></h3>
 
-	<div class="navigation">
-		<div class="next-posts"><?php previous_comments_link() ?></div>
-		<div class="prev-posts"><?php next_comments_link() ?></div>
+		<ol class="comments-list">
+			<?php wp_list_comments(); ?>
+		</ol>
+
+		<div class="navigation">
+			<div class="next-comments"><?php previous_comments_link('Next') ?></div>
+			<div class="prev-comments"><?php next_comments_link('Prev') ?></div>
+		</div>
 	</div>
-
-	<ol class="commentlist">
-		<?php wp_list_comments(); ?>
-	</ol>
-
-	<div class="navigation">
-		<div class="next-posts"><?php previous_comments_link() ?></div>
-		<div class="prev-posts"><?php next_comments_link() ?></div>
-	</div>
-	
- <?php else : // this is displayed if there are no comments so far ?>
-
+<?php else : // this is displayed if there are no comments so far ?>
 	<?php if ( comments_open() ) : ?>
 		<!-- If comments are open, but there are no comments. -->
 
-	 <?php else : // comments are closed ?>
-		<p><?php _e('Comments are closed.','html5reset'); ?></p>
+	<?php else : // comments are closed ?>
+		<!--p><php _e('Comments are closed.','html5reset'); ></p-->
 
 	<?php endif; ?>
-	
 <?php endif; ?>
 
 <?php if ( comments_open() ) : ?>
 
-<div id="respond">
+	<div class="comments-respond <?php if ( have_comments() ) : ?>comments-respond-no-comments<?php endif; ?>" >
 
-	<h2><?php comment_form_title( __('Leave a Reply','html5reset'), __('Leave a Reply to %s','html5reset') ); ?></h2>
+		<h3 class="comments-header"><?php comment_form_title( __('댓글 남기기','html5reset'), __('Leave a Reply to %s','html5reset') ); ?></h3>
 
-	<div class="cancel-comment-reply">
-		<?php cancel_comment_reply_link(); ?>
-	</div>
+		<div class="cancel-comments">
+			<?php cancel_comment_reply_link(); ?>
+		</div>
 
-	<?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
-		<p><?php _e('You must be','html5reset'); ?> <a href="<?php echo wp_login_url( get_permalink() ); ?>"><?php _e('logged in','html5reset'); ?></a> <?php _e('to post a comment.','html5reset'); ?></p>
-	<?php else : ?>
-
-	<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
-
-		<?php if ( is_user_logged_in() ) : ?>
-
-			<p><?php _e('Logged in as','html5reset'); ?> <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="Log out of this account"><?php _e('Log out','html5reset'); ?> &raquo;</a></p>
-
+		<?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
+		<div class="comments-required-reg">
+			<p> <?php _e('You must be','html5reset'); ?>
+				<a href="<?php echo wp_login_url( get_permalink() ); ?>">
+					<?php _e('logged in','html5reset'); ?>
+				</a>
+				<?php _e('to post a comment.','html5reset'); ?> </p>
+		</div>
 		<?php else : ?>
+		<div class="comments-write">
+			<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
 
-			<div>
-				<input type="text" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
-				<label for="author"><?php _e('Name','html5reset'); ?> <?php if ($req) echo "(required)"; ?></label>
-			</div>
+				<div class="comments-userinfo">
+				<?php if ( is_user_logged_in() ) : ?>
+					<p><a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php">
+							<?php echo $user_identity; ?></a><?php _e('님으로 로그인함','html5reset'); ?>.
+						<a class="comments-link-button" href="<?php echo wp_logout_url(get_permalink()); ?>" title="Log out of this account"
+							>
+							<?php _e('로그아웃','html5reset'); ?></a>
+					</p>
+				<?php else : ?>
+					<p>이메일은 공개되지 않습니다. 필수 입력창은 <strong>*</strong> 로 표시되어 있습니다.</p>
 
-			<div>
-				<input type="text" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
-				<label for="email"><?php _e('Mail (will not be published)','html5reset'); ?> <?php if ($req) echo "(required)"; ?></label>
-			</div>
+					<div class="comments-input-info">
+						<label for="author"><?php _e('이름','html5reset'); ?> <?php if ($req) echo "<strong>*</strong>"; ?></label></br>
+						<input type="text" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
+					</div>
 
-			<div>
-				<input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3" />
-				<label for="url"><?php _e('Website','html5reset'); ?></label>
-			</div>
+					<div class="comments-input-info">
+						<label for="email"><?php _e('메일','html5reset'); ?> <?php if ($req) echo "<strong>*</strong>"; ?></label></br>
+						<input type="text" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
+					</div>
 
-		<?php endif; ?>
+					<div class="comments-input-info">
+						<label for="url"><?php _e('웹사이트','html5reset'); ?></label></br>
+						<input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3" />
+					</div>
 
-		<!--<p>You can use these tags: <code><?php echo allowed_tags(); ?></code></p>-->
+				<?php endif; ?>
+				</div>
 
-		<div>
-			<textarea name="comment" id="comment" cols="58" rows="10" tabindex="4"></textarea>
+				<div>
+					<?php if ( !is_user_logged_in() ) : ?>
+						<label for="comment"><?php _e('댓글','html5reset'); ?></label>
+					<?php endif; ?>
+					<textarea  name="comment" id="comment" cols="58" rows="10" tabindex="4"></textarea>
+				</div>
+
+				<div class="comments-input-tags">
+					<p>다음의 HTML 태그와 속성을 사용할 수 있습니다: <code><?php echo allowed_tags(); ?></code></p>
+				</div>
+
+				<div>
+					<input name="submit" type="submit" id="submit" tabindex="5" value="<?php _e('댓글 달기','html5reset'); ?>" />
+					<?php comment_id_fields(); ?>
+				</div>
+
+				<?php do_action('comment_form', $post->ID); ?>
+
+			</form>
 		</div>
+		<?php endif; // If registration required and not logged in ?>
 
-		<div>
-			<input name="submit" type="submit" id="submit" tabindex="5" value="<?php _e('Submit Comment','html5reset'); ?>" />
-			<?php comment_id_fields(); ?>
-		</div>
-		
-		<?php do_action('comment_form', $post->ID); ?>
-
-	</form>
-
-	<?php endif; // If registration required and not logged in ?>
-	
-</div>
+	</div>
 
 <?php endif; ?>

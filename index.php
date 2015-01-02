@@ -12,8 +12,10 @@
 					<article <?php post_class('post-entry'); ?> id="post-<?php the_ID(); ?>">
 
 						<div class="post-entry-inner">
-							<h2 class="entry-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
-							<!-- permalink - 고유주소 : 글/페이지 자동 연결 -->
+							<div class="entry-header">
+								<h2 class="entry-title"><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
+								<!-- permalink - 고유주소 : 글/페이지 자동 연결 -->
+							</div>
 
 							<div class="entry-info" >
 								<?php posted_on(); ?> <span class="separator"> | </span>
